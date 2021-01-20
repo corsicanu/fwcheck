@@ -1,0 +1,65 @@
+name: Check firmware update for 9 series
+
+on:
+  schedule:
+    - cron: "10 */3 * * *"
+  push:
+
+jobs:
+  update:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        model: [SM-G960N, SM-G965N, SM-N960N]
+        region: [KTC]
+
+    steps:
+      - name: Check existance of device and firmware
+        id: exists
+        run: |
+          exists=0
+          latest=`curl --retry 5 --retry-delay 5 http://fota-cloud-dn.ospserver.net/firmware/${{ matrix.region }}/${{ matrix.model }}/version.xml | grep latest | sed 's/^[^>]*>//' | sed 's/<.*//'`
+          [[ -z $latest ]] || exists=1
+          echo ::set-output name=exists::$exists
+
+      - name: Checkout repo
+        if: steps.exists.outputs.exists == 1
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Compare latest version with current version
+        if: steps.exists.outputs.exists == 1
+        id: check
+        run: |
+          need_update=0
+          latest=`curl --retry 5 --retry-delay 5 http://fota-cloud-dn.ospserver.net/firmware/${{ matrix.region }}/${{ matrix.model }}/version.xml | grep latest | sed 's/^[^>]*>//' | sed 's/<.*//'`
+          latest_short=`echo $latest | cut -d'/' -f1`
+          latest_csc=`echo $latest | cut -d'/' -f2`
+          latest_modem=`echo $latest | cut -d'/' -f3`
+          current=`cat current.${{ matrix.region }}.${{ matrix.model }}` || need_update=1
+          [[ $latest != $current ]] && need_update=1
+          echo ::set-output name=latest_version::$latest
+          echo ::set-output name=latest_shortversion::$latest_short
+          echo ::set-output name=latest_cscversion::$latest_csc
+          echo ::set-output name=latest_modemversion::$latest_modem
+          echo ::set-output name=need_update::$need_update
+
+      - name: Update current version
+        if: steps.check.outputs.need_update == 1
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git pull origin ${{github.ref}} --ff-only
+          echo ${{ steps.check.outputs.latest_version }} > current.${{ matrix.region }}.${{ matrix.model }}
+          git add current.${{ matrix.region }}.${{ matrix.model }}
+          git commit -m "${{ matrix.model }}/${{ matrix.region }}: ${{ steps.check.outputs.latest_version }}"
+
+      - name: Push changes to repo
+        if: steps.check.outputs.need_update == 1
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
