@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-G970F, SM-G973F, SM-G975F, SM-G977B, SM-N970F, SM-N975F, SM-N976B, SM-G970N, SM-G973N, SM-G975N, SM-G977N, SM-N971N, SM-N976N, SM-N770F]
-        region: [DBT, AUT, XEO, BTU, INS, PHE, XSG, NEE, XXV, KSA, ROM, KTC]
+        model: [SM-G970F, SM-G973F, SM-G975F, SM-G977B, SM-N970F, SM-N975F, SM-N976B]
+        region: [DBT, AUT, XEO, BTU, INS, XSG, NEE, ROM]
 
     steps:
       - name: Check existance of device and firmware
