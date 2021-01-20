@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-G960F, SM-G965F, SM-N960F, SM-G960N, SM-G965N, SM-N960N]
-        region: [DBT, AUT, XEO, BTU, INS, PHE, XSG, NEE, XXV, KSA, ROM, KTC]
+        model: [SM-G960F, SM-G965F, SM-N960F]
+        region: [DBT, AUT, XEO, BTU, INS, XSG, NEE, ROM]
 
     steps:
       - name: Check existance of device and firmware
