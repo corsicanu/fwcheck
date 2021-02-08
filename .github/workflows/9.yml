@@ -3,7 +3,6 @@ name: Check firmware update for 9 series
 on:
   schedule:
     - cron: "10 */3 * * *"
-  push:
 
 jobs:
   update:
