@@ -2,7 +2,7 @@ name: Check firmware update for 10 series
 
 on:
   schedule:
-    - cron: "20 */3 * * *"
+    - cron: "20 12 * * *"
 
 jobs:
   update:
