@@ -1,6 +1,7 @@
 name: Check firmware update for 9 series
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "10 12 * * *"
 

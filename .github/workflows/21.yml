@@ -1,6 +1,7 @@
 name: Check firmware update for 21 series
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "40 12 * * *"
 
