@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-T860, SM-T865, SM-T867R4, SM-T867U, SM-T865N, SM-T866N, SM-T867]
-        region: [DBT, AUT, XEO, BTU, INS, XSG, NEE, ROM, USC, BST, KOO, TUR]
+        model: [SM-T860, SM-T865, SM-T867R4, SM-T867U, SM-T865N, SM-T866N, SM-T867, SM-T875, SM-X906B, SM-X806B]
+        region: [DBT, AUT, BTU, EUX]
 
     steps:
       - name: Check existance of device and firmware
