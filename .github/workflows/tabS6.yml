@@ -1,9 +1,9 @@
-name: Check firmware update for 8 series
+name: Check firmware update for tab S6 series
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "30 12 * * *"
 
 jobs:
   update:
@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-G950F, SM-G955F, SM-N950F]
-        region: [DBT, AUT, XEO, BTU, INS, XSG, NEE, ROM]
+        model: [SM-T860, SM-T865, SM-T875]
+        region: [DBT, AUT]
 
     steps:
       - name: Check existance of device and firmware

@@ -3,7 +3,7 @@ name: Check firmware update for 20 series
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 12 * * *"
+    - cron: "10 12 * * *"
 
 jobs:
   update:
@@ -14,7 +14,7 @@ jobs:
       max-parallel: 1
       matrix:
         model: [SM-G980F, SM-G981B, SM-G985F, SM-G986B, SM-G988B, SM-N980F, SM-N981B, SM-N985F, SM-N986B]
-        region: [DBT, AUT, XEO, BTU, INS, XSG, NEE, ROM]
+        region: [DBT, AUT, BTU, ROM]
 
     steps:
       - name: Check existance of device and firmware

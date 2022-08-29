@@ -1,4 +1,4 @@
-name: Check firmware update for tab S6 series
+name: Check firmware update for new S series tabs
 
 on:
   workflow_dispatch:
@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-T860, SM-T865, SM-T867R4, SM-T867U, SM-T865N, SM-T866N, SM-T867, SM-T875, SM-X906B, SM-X806B]
-        region: [DBT, AUT, BTU, EUX]
+        model: [SM-X906B, SM-X806B]
+        region: [EUX]
 
     steps:
       - name: Check existance of device and firmware

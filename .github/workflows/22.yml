@@ -1,9 +1,9 @@
-name: Check firmware update for 8 series
+name: Check firmware update for 22 series
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 12 * * *"
+    - cron: "20 12 * * *"
 
 jobs:
   update:
@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-G950N, SM-G955N, SM-N950N]
-        region: [KTC]
+        model: [SM-S908B, SM-S906B, SM-S901B]
+        region: [EUX]
 
     steps:
       - name: Check existance of device and firmware
