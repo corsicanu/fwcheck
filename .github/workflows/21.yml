@@ -14,7 +14,7 @@ jobs:
       max-parallel: 1
       matrix:
         model: [SM-G991B, SM-G996B, SM-G998B]
-        region: [DBT, AUT, BTU, ROM]
+        region: [DBT, AUT, BTU, ROM, PHE, XEO]
 
     steps:
       - name: Check existance of device and firmware
