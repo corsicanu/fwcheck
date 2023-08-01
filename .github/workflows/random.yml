@@ -1,4 +1,4 @@
-name: Check firmware update for new S series tabs
+name: Check firmware update for other random devices
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-X906B, SM-X806B]
+        model: [SM-X906B, SM-X806B, SM-G990B, SM-F936B, SM-X816B, SM-X916B]
         region: [EUX]
 
     steps:
