@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-X906B, SM-X806B, SM-G990B, SM-F936B, SM-X816B, SM-X916B]
-        region: [EUX]
+        model: [SM-F936B, SM-F946B, SM-G990B, SM-X906B, SM-X916B]
+        region: [EUX, EUY, INS, KSA, XXV, BTB]
 
     steps:
       - name: Check existance of device and firmware
@@ -27,7 +27,7 @@ jobs:
 
       - name: Checkout repo
         if: env.exists == 1
-        uses: actions/checkout@v3
+        uses: actions/checkout@master
         with:
           submodules: true
 
