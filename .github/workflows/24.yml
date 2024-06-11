@@ -1,4 +1,4 @@
-name: Check firmware update for 22 series
+name: Check firmware update for 24 series
 
 on:
   workflow_dispatch:
