@@ -14,7 +14,7 @@ jobs:
       max-parallel: 1
       matrix:
         model: [SM-S908B, SM-S906B, SM-S901B]
-        region: [EUX]
+        region: [EUX, EUY, INS, KSA, XXV, BTB]
 
     steps:
       - name: Check existance of device and firmware
