@@ -1,9 +1,9 @@
-name: Check firmware update for 10 series
+name: Check firmware update for other random devices
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "5 12 * * *"
+    - cron: "30 12 * * *"
 
 jobs:
   update:
@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        model: [SM-G970N, SM-G973N, SM-G975N, SM-G977N, SM-N971N, SM-N976N]
-        region: [KTC]
+        model: [SM-F936B, SM-F946B, SM-G990B]
+        region: [EUX, EUY, INS, KSA, XXV, BTB]
 
     steps:
       - name: Check existance of device and firmware
@@ -27,7 +27,7 @@ jobs:
 
       - name: Checkout repo
         if: env.exists == 1
-        uses: actions/checkout@v3
+        uses: actions/checkout@master
         with:
           submodules: true
 
@@ -40,7 +40,7 @@ jobs:
           latest_short=`echo $latest | cut -d'/' -f1`
           latest_csc=`echo $latest | cut -d'/' -f2`
           latest_modem=`echo $latest | cut -d'/' -f3`
-          current=`cat current.${{ matrix.region }}.${{ matrix.model }}` || need_update=1
+          current=`cat current/${{ matrix.model }}.${{ matrix.region }}` || need_update=1
           [[ $latest != $current ]] && need_update=1
           echo "latest_version=$latest" >> $GITHUB_ENV
           echo "latest_shortversion=$latest_short" >> $GITHUB_ENV
@@ -54,8 +54,8 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git pull origin ${{github.ref}} --ff-only
-          echo ${{ env.latest_version }} > current.${{ matrix.region }}.${{ matrix.model }}
-          git add current.${{ matrix.region }}.${{ matrix.model }}
+          echo ${{ env.latest_version }} > current/${{ matrix.model }}.${{ matrix.region }}
+          git add current/${{ matrix.model }}.${{ matrix.region }}
           git commit -m "${{ matrix.model }}/${{ matrix.region }}: ${{ env.latest_version }}"
 
       - name: Push changes to repo
